@@ -166,15 +166,7 @@ void preOrden(struct node *raiz){
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    AllHailSatan w;
-    w.show();
-
-    return a.exec();
-}
-
-/*int main(){
-  	struct node *raiz = NULL;
+    struct node *raiz = NULL;
     raiz = insertar(raiz, 10);
     raiz = insertar(raiz, 20);
     raiz = insertar(raiz, 30);
@@ -184,16 +176,24 @@ int main(int argc, char *argv[])
     raiz = insertar(raiz, 45);
     raiz = insertar(raiz, 70);
     raiz = insertar(raiz, 8);
- 
+
     printf("Pre orden construido: \n");
     preOrden(raiz);
     printf("\n");
- 
+
     raiz = borrar(raiz, 30);
 
     printf("Pre orden luego de borrar: \n");
     preOrden(raiz);
     printf("\n");
+    QApplication a(argc, argv);
+    AllHailSatan w;
+    w.show();
+
+    return a.exec();
+}
+
+/*int main(){
  
     return 0;
 }*/

@@ -13,8 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        allhailsatan.cpp
+        allhailsatan.cpp \
+    btreenode.cpp \
+    avltree.cpp
 
-HEADERS  += allhailsatan.h
+HEADERS  += allhailsatan.h \
+    btreenode.h \
+    avltree.h
 
 FORMS    += allhailsatan.ui
