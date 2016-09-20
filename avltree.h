@@ -24,10 +24,10 @@ class AVLTree{
 	    node* buscar(struct node* nodo, int posicion);
         void cargar(vector<int>& lista);
         void show();
-	private:
+        void preOrden(struct node *raiz);
         node* _root;
-		void preOrden(struct node *raiz);
-		void pruebaEstres(struct node *raiz);
+        void pruebaEstres(struct node *raiz, AVLTree* Raiz);
+    private:
 		int altura(struct node *nodo);
 		int maximo(int num1, int num2);
 		node *nuevoNodo(int llave);

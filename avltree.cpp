@@ -6,6 +6,9 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <qgraphicsview>
+#include <qtextstream>
+#include <qprocess>
 
 using namespace std;
 
@@ -156,11 +159,14 @@ void AVLTree::preOrden(struct node *raiz){
     }
 }
 
-void AVLTree::pruebaEstres(struct node *raiz){
+void AVLTree::pruebaEstres(struct node *raiz, AVLTree* Raiz){
 	for (int i = 0; i < 1000000; ++i){
-    	raiz = insertar(raiz, i);
+        raiz = Raiz->insertar(raiz, i);
     	cout<<i<<endl;
     }
+    printf("Pre orden construido: \n");
+    Raiz->preOrden(raiz);
+    printf("\n");
 }
 
 node* AVLTree::buscar(struct node* nodo, int posicion){
