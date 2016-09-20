@@ -3,10 +3,14 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstring>
+#include <sstring>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
-struct node{
+/*struct node{
     int llave;
     struct node *nodoIzquierdo;
     struct node *nodoDerecho;
@@ -162,10 +166,11 @@ void preOrden(struct node *raiz){
         preOrden(raiz->nodoIzquierdo);
         preOrden(raiz->nodoDerecho);
     }
-}
+}*/
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
+    vector<int> lista;
+    cargar(lista);
     struct node *raiz = NULL;
     raiz = insertar(raiz, 10);
     raiz = insertar(raiz, 20);
