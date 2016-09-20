@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstring>
-#include <sstring>
+#include <sstream>
 #include <fstream>
 #include <vector>
 
@@ -64,8 +64,7 @@ node* AVLTree::insertar(struct node* nodo, int llave){
     }
     if (llave < nodo->llave){
         nodo->nodoIzquierdo  = insertar(nodo->nodoIzquierdo, llave);
-    }
-    else{
+    } else {
         nodo->nodoDerecho = insertar(nodo->nodoDerecho, llave);
     }
     nodo->altura = maximo(altura(nodo->nodoIzquierdo), altura(nodo->nodoDerecho)) + 1;
@@ -73,21 +72,17 @@ node* AVLTree::insertar(struct node* nodo, int llave){
     if (hacerBalance > 1 && llave < nodo->nodoIzquierdo->llave){
         return cambioDerecha(nodo);
     }
-
     if (hacerBalance < -1 && llave > nodo->nodoDerecho->llave){
         return cambioIzquierda(nodo);
     }
-
     if (hacerBalance > 1 && llave > nodo->nodoIzquierdo->llave){
         nodo->nodoIzquierdo =  cambioIzquierda(nodo->nodoIzquierdo);
         return cambioDerecha(nodo);
     }
-
     if (hacerBalance < -1 && llave < nodo->nodoDerecho->llave){
         nodo->nodoDerecho = cambioDerecha(nodo->nodoDerecho);
         return cambioIzquierda(nodo);
     }
-
     return nodo;
 }
 
@@ -174,9 +169,9 @@ node* AVLTree::buscar(struct node* nodo, int posicion){
         	return nodo;
         }
         if(posicion < nodo->llave){
-            return buscar(posicion, nodo->nodoIzquierdo);
+            return buscar(nodo->nodoIzquierdo, posicion);
         }else{
-            return buscar(posicion, nodo->nodoDerecho);
+            return buscar(nodo->nodoDerecho, posicion);
         }
     }else{
         return NULL;
@@ -193,7 +188,7 @@ void AVLTree::cargar(vector<int>& lista){
 		lector >> delim;
 		if (!lector.fail()){
 			if (delim == ','){
-				numero.ss.str();
+                numero = ss.str();
 				ss.str("");
 				int cambio = atoi(numero.c_str());
 				lista.push_back(cambio);
@@ -210,26 +205,27 @@ void AVLTree::cargar(vector<int>& lista){
 void AVLTree::init(QGraphicsScene* scene, QGraphicsView* view){
     this->_scene = scene;
     this->_view = view;
+    this->_root = NULL;
 }
 
-void AVLTree::_graphWalk(Node* nodo, QTextStream *stream) {
+void AVLTree::_graphWalk(node* nodo, QTextStream *stream) {
     if (nodo != NULL){
-        *stream < < "\t\t" << "n" << nodo->llave < < "[label=\"" << nodo->llave < <"\"];" << endl;
+        *stream << "\t\t" << "n" << nodo->llave << "[label=\"" << nodo->llave <<"\"];" << endl;
  
-        if(p->nodoIzquierdo != NULL){
-            *stream < < "\t\tn" << nodo->llave < < "--" << "n" << nodo->nodoIzquierdo->llave < < ";" << endl;
+        if(nodo->nodoIzquierdo != NULL){
+            *stream << "\t\tn" << nodo->llave << "--" << "n" << nodo->nodoIzquierdo->llave << ";" << endl;
             this->_graphWalk(nodo->nodoIzquierdo, stream);
         }else{
-            *stream < < "\t\t" << "n" << nodo->llave < < "leftNull" << "[style=\"filled\",label=\"NULL\"];" << endl;
-            *stream << "\t\tn" << nodo->llave < < "--" << "n" << nodo->llave < < "leftNull" << endl;
+            *stream << "\t\t" << "n" << nodo->llave << "leftNull" << "[style=\"filled\",label=\"NULL\"];" << endl;
+            *stream << "\t\tn" << nodo->llave << "--" << "n" << nodo->llave << "leftNull" << endl;
         }
  
-        if(p->nodoDerecho != NULL){
-            *stream < < "\t\tn" << nodo->llave < < "--" << "n" << nodo->nodoDerecho->llave < < ";" << endl;
+        if(nodo->nodoDerecho != NULL){
+            *stream << "\t\tn" << nodo->llave << "--" << "n" << nodo->nodoDerecho->llave << ";" << endl;
             this->_graphWalk(nodo->nodoDerecho, stream);
         }else{
-            *stream < < "\t\t" << "n" << nodo->llave < < "rightNull" << "[style=\"filled\",label=\"NULL\"];" << endl;
-            *stream << "\t\tn" << nodo->llave < < "--" << "n" << nodo->llave < < "rightNull" << endl;
+            *stream << "\t\t" << "n" << nodo->llave << "rightNull" << "[style=\"filled\",label=\"NULL\"];" << endl;
+            *stream << "\t\tn" << nodo->llave << "--" << "n" << nodo->llave << "rightNull" << endl;
         }
     }
 }
@@ -243,7 +239,7 @@ QByteArray AVLTree::_prepareGraph(){
     stream << "\tsubgraph cluster17{" << endl;
  
     this->_graphWalk(this->_root, &stream);
-    stream < < "\t}\n" << "}" << endl;
+    stream << "\t}\n" << "}" << endl;
     stream.flush();
  
     return a;
@@ -254,7 +250,7 @@ void AVLTree::show(){
     QByteArray a = this->_prepareGraph();
  
     p->setProcessChannelMode(QProcess::MergedChannels);
-    p->start("dot", QStringList() < < "-Tpng");
+    p->start("dot", QStringList() << "-Tpng");
     p->write(a);
  
     QByteArray data;

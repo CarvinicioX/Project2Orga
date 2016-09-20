@@ -1,12 +1,16 @@
 #include "allhailsatan.h"
+#include "avltree.h"
+#include "btreenode.h"
 #include <QApplication>
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstring>
-#include <sstring>
 #include <fstream>
 #include <vector>
+#include <qgraphicsview>
+#include <qtextstream>
+#include <qprocess>
 
 using namespace std;
 
@@ -169,29 +173,33 @@ void preOrden(struct node *raiz){
 }*/
 
 int main(int argc, char *argv[]){
+    QApplication a(argc, argv);
+    QGraphicsScene scene;
+    QGraphicsView view(&scene);
+    view.setRenderHints(QPainter::SmoothPixmapTransform);
+    AVLTree* Raiz = new AVLTree();
     vector<int> lista;
-    cargar(lista);
-    struct node *raiz = NULL;
-    raiz = insertar(raiz, 10);
-    raiz = insertar(raiz, 20);
-    raiz = insertar(raiz, 30);
-    raiz = insertar(raiz, 40);
-    raiz = insertar(raiz, 50);
-    raiz = insertar(raiz, 25);
-    raiz = insertar(raiz, 45);
-    raiz = insertar(raiz, 70);
-    raiz = insertar(raiz, 8);
+    Raiz->init(&scene, &view);
+    Raiz->cargar(lista);
+    Raiz = Raiz->insertar(Raiz, 10);
+    Raiz = Raiz->insertar(Raiz, 20);
+    Raiz = Raiz->insertar(Raiz, 30);
+    Raiz = Raiz->insertar(Raiz, 40);
+    Raiz = Raiz->insertar(Raiz, 50);
+    Raiz = Raiz->insertar(Raiz, 25);
+    Raiz = Raiz->insertar(Raiz, 45);
+    Raiz = Raiz->insertar(Raiz, 70);
+    Raiz = Raiz->insertar(Raiz, 8);
 
     printf("Pre orden construido: \n");
-    preOrden(raiz);
+    Raiz->preOrden(Raiz);
     printf("\n");
 
-    raiz = borrar(raiz, 30);
+    Raiz = Raiz->borrar(Raiz, 30);
 
     printf("Pre orden luego de borrar: \n");
-    preOrden(raiz);
+    Raiz->preOrden(Raiz);
     printf("\n");
-    QApplication a(argc, argv);
     AllHailSatan w;
     w.show();
 

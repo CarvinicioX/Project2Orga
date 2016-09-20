@@ -22,11 +22,12 @@ class AVLTree{
 	    node* insertar(struct node* nodo, int llave);
 	    node* borrar(struct node* raiz, int llave);
 	    node* buscar(struct node* nodo, int posicion);
-	    void show();
+        void cargar(vector<int>& lista);
+        void show();
 	private:
+        node* _root;
 		void preOrden(struct node *raiz);
 		void pruebaEstres(struct node *raiz);
-		void cargar(vector<int>& lista);
 		int altura(struct node *nodo);
 		int maximo(int num1, int num2);
 		node *nuevoNodo(int llave);
@@ -35,7 +36,7 @@ class AVLTree{
 		int balance(struct node *nodo);
 		node *minimo(struct node* nodo);
 		QByteArray _prepareGraph();
-        void _graphWalk(Node* p,  QTextStream* stream);
+        void _graphWalk(node* p,  QTextStream* stream);
         QGraphicsScene* _scene;
         QGraphicsView* _view;
 };
