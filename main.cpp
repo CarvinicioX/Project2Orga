@@ -181,24 +181,24 @@ int main(int argc, char *argv[]){
     vector<int> lista;
     Raiz->init(&scene, &view);
     Raiz->cargar(lista);
-    Raiz->insertar(Raiz, 10);
-    Raiz->insertar(Raiz, 20);
-    Raiz->insertar(Raiz, 30);
-    Raiz->insertar(Raiz, 40);
-    Raiz->insertar(Raiz, 50);
-    Raiz->insertar(Raiz, 25);
-    Raiz->insertar(Raiz, 45);
-    Raiz->insertar(Raiz, 70);
-    Raiz->insertar(Raiz, 8);
+    Raiz->insertar(this->_root, 10);
+    Raiz->insertar(this->_root, 20);
+    Raiz->insertar(this->_root, 30);
+    Raiz->insertar(this->_root, 40);
+    Raiz->insertar(this->_root, 50);
+    Raiz->insertar(this->_root, 25);
+    Raiz->insertar(this->_root, 45);
+    Raiz->insertar(this->_root, 70);
+    Raiz->insertar(this->_root, 8);
 
     printf("Pre orden construido: \n");
-    Raiz->preOrden(Raiz);
+    Raiz->preOrden(this->_root);
     printf("\n");
 
-    Raiz->borrar(Raiz, 30);
+    Raiz->borrar(this->_root, 30);
 
     printf("Pre orden luego de borrar: \n");
-    Raiz->preOrden(Raiz);
+    Raiz->preOrden(this->_root);
     printf("\n");
     AllHailSatan w;
     w.show();
